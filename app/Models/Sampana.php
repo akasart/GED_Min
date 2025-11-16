@@ -1,0 +1,12 @@
+<?php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Sampana extends Model
+{
+    use HasFactory;
+    protected $table = 'sampanas';
+    protected $fillable = ['val', 'desc', 'image', 'anne'];
+}

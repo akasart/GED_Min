@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archives - GED</title>
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <style>
+    .card-header h3 { margin: 0; }
+    .main-sidebar { background-color: #535b6cfb !important; }
+    .brand-link span { font-size: 0.75rem; text-align: center; }
+  </style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Sidebar -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="index.html" class="brand-link d-flex flex-column align-items-center text-center py-3">
+      <img src="img/logoMIN.png" alt="Logo Ministère" class="brand-image img-circle elevation-3 mb-1" style="width:90px; height:90px; object-fit:cover;">
+      <span class="brand-text font-weight-light text-white">
+        Ministère du Travail, de l'Emploi et<br> de la Fonction Publique
+      </span>
+    </a>
+
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
+        <li class="nav-item">
+          <a href="index.html" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>Dashboard</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="ajout.html" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Ajouter un Document</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="liste-documents.html" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Liste des Documents</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="archives.html" class="nav-link active">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Archives</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="historique.html" class="nav-link">
+            <i class="nav-icon fas fa-history"></i>
+            <p>Historique</p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Contenu principal -->
+  <div class="content-wrapper" style="margin-left:250px;">
+    <section class="content pt-4">
+      <div class="container-fluid">
+
+        <!-- Barre de recherche -->
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Recherche dans les archives</h3>
+          </div>
+          <div class="card-body">
+            <div class="input-group mb-3">
+              <input type="text" id="searchArchives" class="form-control" placeholder="Rechercher un document, une direction...">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tableau Archives -->
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h3 class="card-title"><i class="fas fa-folder-open"></i> Archives des documents</h3>
+          </div>
+          <div class="card-body">
+            <table id="archivesTable" class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>Référence</th>
+                  <th>Titre</th>
+                  <th>Type</th>
+                  <th>Direction</th>
+                  <th>Date d'archivage</th>
+                  <th>État</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>DOC-2025-001</td>
+                  <td>Note de service - Réorganisation</td>
+                  <td>Note de Service</td>
+                  <td>Direction des RH</td>
+                  <td>2025-10-14</td>
+                  <td><span class="badge badge-success">Archivé</span></td>
+                  <td>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-info" title="Voir"><i class="fas fa-eye"></i></button>
+                      <button type="button" class="btn btn-sm btn-primary" title="Télécharger"><i class="fas fa-download"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>DOC-2025-002</td>
+                  <td>Rapport annuel 2024</td>
+                  <td>Rapport</td>
+                  <td>Direction Financière</td>
+                  <td>2025-09-30</td>
+                  <td><span class="badge badge-success">Archivé</span></td>
+                  <td>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-info" title="Voir"><i class="fas fa-eye"></i></button>
+                      <button type="button" class="btn btn-sm btn-primary" title="Télécharger"><i class="fas fa-download"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <!-- Ajouter d’autres archives ici -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+</div>
+
+<!-- JS -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="dist/js/adminlte.min.js"></script>
+
+<script>
+$(document).ready(function() {
+  var table = $('#archivesTable').DataTable({
+    "paging": true,
+    "lengthChange": true,
+    "searching": true,
+    "ordering": true,
+    "info": true,
+    "autoWidth": false,
+    "responsive": true
+  });
+
+  // Barre de recherche personnalisée
+  $('#searchArchives').on('keyup', function() {
+    table.search(this.value).draw();
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Information Agent - GED</title>
+<link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+<link rel="stylesheet" href="dist/css/adminlte.min.css">
+<style>
+  .content-wrapper { margin-left:250px; margin-top:56px; padding:20px; }
+</style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+
+<div class="wrapper">
+
+  <!-- Sidebar -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4" style="position: fixed; top:0; left:0; height:100%; width:250px; background-color:#535b6cfb;">
+    <a href="#" class="brand-link d-flex flex-column align-items-center text-center py-3">
+      <img src="img/logoMIN.png" alt="Logo Ministère" class="brand-image img-circle elevation-3 mb-1" style="width:90px; height:90px; object-fit:cover;">
+      <span class="brand-text font-weight-light text-white" style="font-size:0.75rem; text-align:center;">
+        Ministère du Travail, de l'Emploi et<br> de la Fonction Publique
+      </span>
+    </a>
+  </aside>
+
+  <!-- Content -->
+  <div class="content-wrapper">
+    <h3 class="mb-3">Informations sur l'Agent</h3>
+    <div class="card p-3 shadow-sm">
+      <div>
+        <p><strong>Document choisi :</strong></p>
+        <ul id="docPreview"></ul>
+
+        <div class="form-group">
+          <label>Matricule / IM</label>
+          <input type="text" class="form-control" id="matricule" required>
+        </div>
+        <div class="form-group">
+          <label>Nom</label>
+          <input type="text" class="form-control" id="nom" required>
+        </div>
+        <div class="form-group">
+          <label>Prénom</label>
+          <input type="text" class="form-control" id="prenom" required>
+        </div>
+        <div class="form-group">
+          <label>Ministère de rattachement</label>
+          <input type="text" class="form-control" id="ministere" required>
+        </div>
+
+        <button type="button" class="btn btn-success" onclick="submitAll()">
+          <i class="fas fa-check"></i> Confirmer
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  const docData = JSON.parse(localStorage.getItem('documentData') || '{}');
+  const preview = document.getElementById('docPreview');
+  preview.innerHTML = '';
+  for (const key in docData) {
+    const li = document.createElement('li');
+    li.textContent = `${key}: ${docData[key]}`;
+    preview.appendChild(li);
+  }
+});
+
+function submitAll() {
+  const agentData = {
+    matricule: document.getElementById('matricule').value,
+    nom: document.getElementById('nom').value,
+    prenom: document.getElementById('prenom').value,
+    ministere: document.getElementById('ministere').value
+  };
+
+  for (const key in agentData) {
+    if (!agentData[key]) {
+      alert("Veuillez remplir tous les champs !");
+      return;
+    }
+  }
+
+  localStorage.setItem('agentData', JSON.stringify(agentData));
+  alert("Toutes les informations ont été enregistrées !");
+}
+</script>
+
+</body>
+</html>

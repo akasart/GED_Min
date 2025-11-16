@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualisation Document - GED</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+
+  <style>
+    .main-sidebar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 100%;
+      width: 250px;
+      background: linear-gradient(180deg, #616161 0%, #616161 100%);
+      z-index: 1038;
+    }
+    .nav-sidebar .nav-link { color: rgba(255,255,255,0.8); }
+    .nav-sidebar .nav-link:hover { color: #fff; background-color: rgba(255,255,255,0.1); }
+    .nav-sidebar .nav-link.active { background-color: #007bff; color: #fff; }
+    .content-wrapper { margin-left: 250px; margin-top:56px; padding:20px; }
+
+    /* Timeline fix */
+    .timeline:before {
+      left: 30px;
+      background: #dee2e6;
+    }
+    .timeline > div > i {
+      left: 22px;
+    }
+    .timeline-item {
+      background: #fff;
+      border-radius: 6px;
+      padding: 10px 15px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+    .timeline-header {
+      font-weight: 600;
+      color: #343a40;
+    }
+    .timeline-body {
+      color: #6c757d;
+    }
+  </style>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-light shadow-sm"
+       style="position:fixed; top:0; left:0; right:0; z-index:1030;">
+    <ul class="navbar-nav">
+      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-bars fa-lg" style="color:#586470;"></i></a></li>
+      <li class="nav-item"><a class="nav-link" href="index.html"><b>Gestion Électronique de Documents</b></a></li>
+    </ul>
+  </nav>
+
+  <!-- Sidebar -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="index.html" class="brand-link d-flex flex-column align-items-center text-center py-3">
+      <img src="img/logoMIN.png" alt="Logo Ministère" class="brand-image img-circle elevation-3 mb-1"
+           style="width:90px; height:90px; object-fit:cover;">
+      <span class="brand-text font-weight-light text-white text-center" style="font-size:0.75rem;">
+        Ministère du Travail, de l'Emploi et<br> de la Fonction Publique
+      </span>
+    </a>
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" role="menu">
+        <li class="nav-item"><a href="index.html" class="nav-link"><i class="fas fa-tachometer-alt mr-2"></i><p>Dashboard</p></a></li>
+        <li class="nav-item"><a href="historique.html" class="nav-link active"><i class="fas fa-history mr-2"></i><p>Historique</p></a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Content -->
+  <div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+        <h3>Fiche Document</h3>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- Informations + Actions -->
+          <div class="col-md-4 col-12 mb-3">
+            <div class="card mb-3">
+              <div class="card-header"><h3 class="card-title">Informations du document</h3></div>
+              <div class="card-body">
+                <table class="table table-striped">
+                  <tr><th>Référence</th><td>DOC-2025-001</td></tr>
+                  <tr><th>Titre</th><td>Note de service - Réorganisation</td></tr>
+                  <tr><th>Type</th><td>Note de Service</td></tr>
+                  <tr><th>Direction</th><td>Direction des RH</td></tr>
+                  <tr><th>Service</th><td>Service du Personnel</td></tr>
+                  <tr><th>Date création</th><td>14/10/2025</td></tr>
+                  <tr><th>État</th><td><span class="badge badge-success">Archivé</span></td></tr>
+                </table>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="card">
+              <div class="card-header"><h3 class="card-title">Actions</h3></div>
+              <div class="card-body">
+                <div class="btn-group-vertical w-100">
+                  <button class="btn btn-primary mb-2"><i class="fas fa-download mr-2"></i>Télécharger</button>
+                  <button class="btn btn-info mb-2"><i class="fas fa-print mr-2"></i>Imprimer</button>
+                  <button class="btn btn-secondary mb-2"><i class="fas fa-share-alt mr-2"></i>Partager</button>
+                  <button class="btn btn-warning"><i class="fas fa-history mr-2"></i>Historique</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Aperçu -->
+          <div class="col-md-8 col-12">
+            <div class="card">
+              <div class="card-header"><h3 class="card-title">Aperçu du document</h3></div>
+              <div class="card-body" style="height:800px; overflow-y:auto;">
+                <embed src="path_to_document.pdf" type="application/pdf" width="100%" height="100%">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Historique Actions -->
+        <div class="row mt-3">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header"><h3 class="card-title">Historique des actions</h3></div>
+              <div class="card-body">
+                <div class="timeline">
+                  <div class="time-label">
+                    <span class="bg-primary">14 Oct. 2025</span>
+                  </div>
+
+                  <div>
+                    <i class="fas fa-check bg-success"></i>
+                    <div class="timeline-item">
+                      <span class="time"><i class="far fa-clock"></i> 14:00</span>
+                      <h3 class="timeline-header"><a href="#">Document archivé</a></h3>
+                      <div class="timeline-body">Par : Fetra</div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <i class="fas fa-edit bg-info"></i>
+                    <div class="timeline-item">
+                      <span class="time"><i class="far fa-clock"></i> 13:45</span>
+                      <h3 class="timeline-header"><a href="#">Modification metadata</a></h3>
+                      <div class="timeline-body">Par : Jean</div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <i class="fas fa-upload bg-warning"></i>
+                    <div class="timeline-item">
+                      <span class="time"><i class="far fa-clock"></i> 13:30</span>
+                      <h3 class="timeline-header"><a href="#">Document créé</a></h3>
+                      <div class="timeline-body">Par : Avo</div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <i class="fas fa-clock bg-gray"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- JS -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="dist/js/adminlte.min.js"></script>
+</body>
+</html>

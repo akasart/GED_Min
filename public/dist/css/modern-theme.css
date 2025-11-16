@@ -1,0 +1,144 @@
+/* Modern Theme Customizations */
+:root {
+  --primary-color: #4a90e2;
+  --secondary-color: #535b6c;
+  --success-color: #2ecc71;
+  --background-color: #f8f9fa;
+  --text-color: #2c3e50;
+  --border-radius: 0.5rem;
+}
+
+/* Modern Layout Improvements */
+.wrapper {
+  background-color: var(--background-color);
+}
+
+.main-header {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  backdrop-filter: blur(10px);
+  background-color: rgba(255,255,255,0.95) !important;
+  border: none;
+}
+
+.main-sidebar {
+  background: var(--secondary-color);
+  box-shadow: 2px 0 4px rgba(0,0,0,0.1);
+}
+
+/* Modern Card Design */
+.card {
+  border-radius: var(--border-radius);
+  border: none;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+/* Modern Form Elements */
+.form-control {
+  border-radius: var(--border-radius);
+  border: 1px solid #e0e0e0;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 3px rgba(74,144,226,0.2);
+  border-color: var(--primary-color);
+}
+
+/* Modern Buttons */
+.btn {
+  border-radius: var(--border-radius);
+  padding: 0.5rem 1.5rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background: var(--primary-color);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: darken(var(--primary-color), 10%);
+  transform: translateY(-1px);
+}
+
+/* Modern Navigation */
+.nav-link {
+  transition: all 0.3s ease;
+  border-radius: var(--border-radius);
+}
+
+.nav-link:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+/* Modern Tables */
+.table {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.table thead th {
+  background-color: rgba(0,0,0,0.02);
+  border-bottom: 2px solid #f0f0f0;
+  font-weight: 600;
+}
+
+/* Fluid Container */
+.container-fluid {
+  padding: 2rem;
+}
+
+/* Modern Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Modern Grid Layout */
+.grid-container {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Improvements */
+@media (max-width: 768px) {
+  .container-fluid {
+    padding: 1rem;
+  }
+  
+  .card {
+    margin-bottom: 1rem;
+  }
+}

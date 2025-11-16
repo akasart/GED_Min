@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion des Documents - GED</title>
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="dist/css/ged-custom.css">
+  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+
+<div class="wrapper">
+  <!-- Sidebar -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4" style="position: fixed; top:0; left:0; height:100%; width:250px; background-color:#535b6cfb;">
+    <a href="Index.html" class="brand-link d-flex flex-column align-items-center text-center py-3">
+      <img src="img/logoMIN.png" alt="Logo Ministère" class="brand-image img-circle elevation-3 mb-1" style="width:90px; height:90px; object-fit:cover;">
+      <span class="brand-text font-weight-light text-white" style="font-size:0.75rem; text-align:center;">
+        Ministère du Travail, de l'Emploi et<br> de la Fonction Publique
+      </span>
+    </a>
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
+        <li class="nav-item">
+          <a href="Index.html" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>Dashboard</p>
+          </a>
+        </li>
+        <li class="nav-item menu-open">
+          <a href="#" class="nav-link active">
+            <i class="nav-icon fas fa-folder"></i>
+            <p>Gestion de Documents<i class="fas fa-angle-left right"></i></p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="ajout.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Ajouter un Document</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="document-view.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Visualisation</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="liste-documents.html" class="nav-link active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Liste des Documents</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="suivi.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Suivi</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="archives.html" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Archives</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="historique.html" class="nav-link">
+            <i class="nav-icon fas fa-history"></i>
+            <p>Historique</p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Content -->
+  <div class="content-wrapper">
+    <!-- Content Header -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Gestion des Documents</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="Index.html">Accueil</a></li>
+              <li class="breadcrumb-item active">Liste des Documents</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Quick Actions -->
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <a href="ajout.html" class="btn btn-primary">
+              <i class="fas fa-plus-circle mr-2"></i>Nouveau Document
+            </a>
+            <button class="btn btn-success ml-2" id="exportExcel">
+              <i class="fas fa-file-excel mr-2"></i>Exporter Excel
+            </button>
+            <button class="btn btn-danger ml-2" id="exportPdf">
+              <i class="fas fa-file-pdf mr-2"></i>Exporter PDF
+            </button>
+          </div>
+        </div>
+          
+        <!-- Filters Card -->
+        <div class="card collapsed-card">
+          <div class="card-header">
+            <h3 class="card-title">Filtres avancés</h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Direction</label>
+                  <select class="form-control" id="filterDirection">
+                    <option value="">Toutes les directions</option>
+                    <option>Direction des RH</option>
+                    <option>Direction Technique</option>
+                    <option>Direction Administrative</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Type de document</label>
+                  <select class="form-control" id="filterType">
+                    <option value="">Tous les types</option>
+                    <option>Note de Service</option>
+                    <option>Circulaire</option>
+                    <option>Décret</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>État</label>
+                  <select class="form-control" id="filterStatus">
+                    <option value="">Tous les états</option>
+                    <option>En cours</option>
+                    <option>Archivé</option>
+                    <option>Rejeté</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Date</label>
+                  <input type="date" class="form-control" id="filterDate">
+                </div>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-12">
+                <button class="btn btn-primary" id="applyFilters">
+                  <i class="fas fa-filter mr-2"></i>Appliquer les filtres
+                </button>
+                <button class="btn btn-secondary ml-2" id="resetFilters">
+                  <i class="fas fa-undo mr-2"></i>Réinitialiser
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Documents Table -->
+        <div class="card">
+          <div class="card-body">
+            <table id="documentsTable" class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>Référence</th>
+                  <th>Titre</th>
+                  <th>Type</th>
+                  <th>Direction</th>
+                  <th>Date création</th>
+                  <th>État</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>DOC-2025-001</td>
+                  <td>Note de service - Réorganisation</td>
+                  <td>Note de Service</td>
+                  <td>Direction des RH</td>
+                  <td>14/10/2025</td>
+                  <td><span class="badge badge-info">En cours</span></td>
+                  <td>
+                    <div class="btn-group">
+                      <a href="document-view.html?id=DOC-2025-001" class="btn btn-sm btn-info" title="Voir">
+                        <i class="fas fa-eye"></i>
+                      </a>
+                      <button type="button" class="btn btn-sm btn-primary" title="Éditer">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button type="button" class="btn btn-sm btn-success" title="Archiver">
+                        <i class="fas fa-archive"></i>
+                      </button>
+                      <button type="button" class="btn btn-sm btn-danger" title="Supprimer">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <!-- Add more example rows here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- Modals -->
+<div class="modal fade" id="editModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Modifier le document</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="editForm">
+          <div class="form-group">
+            <label>Titre</label>
+            <input type="text" class="form-control" id="editTitle">
+          </div>
+          <div class="form-group">
+            <label>Type</label>
+            <select class="form-control" id="editType">
+              <option>Note de Service</option>
+              <option>Circulaire</option>
+              <option>Décret</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Direction</label>
+            <select class="form-control" id="editDirection">
+              <option>Direction des RH</option>
+              <option>Direction Technique</option>
+              <option>Direction Administrative</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="saveEdit">Enregistrer</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Core JS -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+<script src="dist/js/adminlte.min.js"></script>
+
+<!-- Page specific script -->
+<script>
+$(document).ready(function() {
+  // Initialize DataTable
+  var table = $('#documentsTable').DataTable({
+    "responsive": true,
+    "autoWidth": false,
+    "language": {
+      "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/French.json"
+    }
+  });
+
+  // Apply filters
+  $('#applyFilters').click(function() {
+    table.draw();
+  });
+
+  // Reset filters
+  $('#resetFilters').click(function() {
+    $('#filterDirection, #filterType, #filterStatus, #filterDate').val('');
+    table.draw();
+  });
+
+  // Edit document
+  $('.btn-primary').click(function() {
+    var row = $(this).closest('tr');
+    $('#editTitle').val(row.find('td:eq(1)').text());
+    $('#editType').val(row.find('td:eq(2)').text());
+    $('#editDirection').val(row.find('td:eq(3)').text());
+    $('#editModal').modal('show');
+  });
+
+  // Delete document
+  $('.btn-danger').click(function() {
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: "Cette action ne peut pas être annulée!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Oui, supprimer!',
+      cancelButtonText: 'Annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Supprimé!',
+          'Le document a été supprimé.',
+          'success'
+        )
+      }
+    })
+  });
+
+  // Archive document
+  $('.btn-success').click(function() {
+    Swal.fire({
+      title: 'Archiver le document?',
+      text: "Le document sera déplacé vers les archives",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#28a745',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Oui, archiver!',
+      cancelButtonText: 'Annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Archivé!',
+          'Le document a été archivé avec succès.',
+          'success'
+        )
+      }
+    })
+  });
+});
+</script>
+
+</body>
+</html>

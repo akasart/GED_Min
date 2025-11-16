@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GED - Ministère du Travail, de l'Emploi et de la Fonction Publique</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- AdminLTE CSS -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- Custom GED CSS -->
+  <link rel="stylesheet" href="dist/css/ged-custom.css">
+
+  <style>
+    /* ---------------- Sidebar & Navbar Styles ---------------- */
+    .main-sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 250px;
+      background: linear-gradient(180deg,#616161 0%,#616161 100%);
+      transition: all 0.3s ease;
+      z-index: 1038;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    }
+    .brand-container {
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      background-color: rgba(0,0,0,0.1);
+    }
+    .brand-image {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      transition: all 0.3s ease;
+    }
+    .brand-text {
+      font-size: 0.75rem;
+      line-height: 1.2;
+      text-align: center;
+      transition: opacity 0.3s ease;
+      color: #232020;
+    }
+    .nav-sidebar .nav-link { color: rgb(198, 222, 233); transition: all 0.2s ease; }
+    .nav-sidebar .nav-link:hover { color: #fffbfb; background-color: rgba(255,255,255,0.1); }
+    .nav-sidebar .nav-link.active { background-color: #ecf1f6; color: #fff; }
+    .nav-treeview { display: none; padding-left: 1rem; margin-top: 2px; }
+    .menu-open > .nav-treeview { display: block; }
+    .content-wrapper { margin-left: 250px; transition: margin-left 0.3s ease; margin-top:56px; }
+    .sidebar-mini.sidebar-collapse .content-wrapper { margin-left: 4.6rem; }
+    .content-section { display:none; opacity:0; transition: opacity 0.3s ease; }
+    .content-section.active-section { display:block; opacity:1; }
+
+    .main-header.navbar { background:#feffff; box-shadow:0 1px 3px rgba(80,76,76,0.1); height:56px; }
+    .main-header .nav-link { position:relative; transition: all 0.3s ease; }
+    #sidebarToggle { padding:0.5rem 1rem; border-radius:0.25rem; margin:0.5rem; }
+    #sidebarToggle:hover { background-color: rgba(0,0,0,0.05); }
+    .navbar-badge { position:absolute; top:6px; right:6px; font-size:0.6rem; padding:3px 5px; border-radius:50%; color:#fff; background-color:#ff2c07; font-weight:bold; line-height:1; }
+
+    /* Mobile */
+    @media (max-width:768px) {
+      .main-sidebar { transform: translateX(-250px); }
+      .sidebar-open .main-sidebar { transform: translateX(0); }
+      .content-wrapper { margin-left:0; }
+      .sidebar-open .content-wrapper { margin-left:250px; }
+      #sidebarToggle { margin:0.25rem; }
+    }
+  </style>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+
+<!-- Navbar -->
+<nav class="main-header navbar navbar-expand navbar-light shadow-sm" style="position:fixed; top:0; left:0; right:0; z-index:1030;">
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" id="sidebarToggle" href="#"><i class="fas fa-bars fa-lg" style="color:#586470;"></i></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="Index.html"><b>Gestion Électronique de Documents</b></a>
+    </li>
+  </ul>
+
+  <form class="form-inline ml-3 flex-grow-1">
+    <div class="input-group input-group-sm w-100">
+      <input class="form-control form-control-navbar" type="search" placeholder="Recherche de documents et des dossiers">
+      <div class="input-group-append">
+        <button class="btn btn-navbar" type="submit"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+  </form>
+
+  <ul class="navbar-nav ml-auto">
+    <!-- Notifications -->
+    <li class="nav-item dropdown">
+      <a class="nav-link position-relative" data-toggle="dropdown" href="#"><i class="far fa-bell fa-lg"></i>
+        <span class="navbar-badge">3</span>
+      </a>
+      <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right dropdown-animate">
+        <span class="dropdown-header">3 Notifications</span>
+        
+        <div class="dropdown-divider"></div>
+        <a href="#" class="dropdown-item"><i class="fas fa-envelope mr-2"></i> Nouveau document ajouté <span class="float-right text-muted text-sm">2 mins</span></a>
+        <div class="dropdown-divider"></div>
+        <a href="#" class="dropdown-item"><i class="fas fa-user mr-2"></i> Utilisateur validé <span class="float-right text-muted text-sm">10 mins</span></a>
+        <div class="dropdown-divider"></div>
+        <a href="#" class="dropdown-item dropdown-footer">Voir toutes les notifications</a>
+      </div>
+    </li>  
+
+    
+    <!-- Admin -->
+    <li class="nav-item dropdown">
+      <a class="nav-link text-dark" data-toggle="dropdown" href="#"><i class="fas fa-user"></i> Admin</a>
+      <div class="dropdown-menu dropdown-menu-right dropdown-animate">
+        <a href="#" class="dropdown-item"><i class="fas fa-user-cog mr-2"></i> Profil</a>
+        <a href="#" class="dropdown-item"><i class="fas fa-cogs mr-2"></i> Paramètres</a>
+        <div class="dropdown-divider"></div>
+        <a href="login.html" class="dropdown-item logout-btn"><i class="fas fa-power-off mr-2"></i> Déconnexion</a>
+      </div>
+    </li>
+  </ul>
+</nav>
+
+  <!-- Sidebar -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <div class="brand-container">
+      <a href="#" class="brand-link d-flex flex-column align-items-center text-center py-3">
+        <img src="img/logoMIN.png" alt="Logo Ministère" class="brand-image img-circle elevation-3 mb-1">
+        <span class="brand-text font-weight-light text-white">
+          Ministère du Travail, de l'Emploi et<br> de la Fonction Publique
+        </span>
+      </a>
+    </div>
+    <div class="sidebar">
+      <nav class="mt-3">
+        <ul class="nav nav-pills nav-sidebar flex-column" role="menu">
+          <li class="nav-item"><a href="#" class="nav-link active" onclick="showSection('dashboard', this)"><i class="nav-icon fas fa-tachometer-alt"></i><p>Dashboard</p></a></li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" data-toggle="treeview">
+              <i class="nav-icon fas fa-folder"></i>
+              <p>
+                Gestion de Documents
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link" data-section="ajouterDoc">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ajouter un Document</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link" data-section="tousDocuments">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tous les Documents</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link" data-section="archives">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Archives</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link" data-section="tousDocs">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Suivi</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link" data-section="rejetes">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Documents Rejetés</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="historique.html" class="nav-link">
+              <i class="nav-icon fas fa-history"></i>
+              <p>Historique</p>
+            </a>
+          </li>
+          
+        
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Content Wrapper -->
+  <div class="content-wrapper" style="margin-left:250px; margin-top:56px;">
+
+    <!-- Dashboard -->
+    <section id="dashboard" class="content-section active-section">
+      <div class="container-fluid">
+        <h3 class="text-center mb-4">Tableau de Bord</h3>
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-info">
+              <div class="inner"><h3>150</h3><p>Documents</p></div>
+              <div class="icon"><i class="fas fa-folder-open"></i></div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-success">
+              <div class="inner"><h3>53</h3><p>Utilisateurs</p></div>
+              <div class="icon"><i class="fas fa-users"></i></div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-warning">
+              <div class="inner"><h3>44</h3><p>Documents ajoutés ce mois</p></div>
+              <div class="icon"><i class="fas fa-upload"></i></div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-danger">
+              <div class="inner"><h3>12</h3><p>En attente</p></div>
+              <div class="icon"><i class="fas fa-clock"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activités récentes -->
+        <div class="card mt-4 shadow-sm">
+          <div class="card-header bg-primary text-white">
+            <h3 class="card-title mb-0"><i class="fas fa-history mr-2"></i> Activités Récentes</h3>
+          </div>
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div><i class="fas fa-download text-info mr-2"></i><strong>Andrianina</strong> a téléchargé le document <strong>N°123</strong></div>
+                <span class="badge badge-light text-muted">il y a 2 min</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div><i class="fas fa-times text-danger mr-2"></i><strong>Fifaliana</strong> a rejeté le dossier <strong>N°45</strong></div>
+                <span class="badge badge-light text-muted">il y a 10 min</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div><i class="fas fa-check text-success mr-2"></i><strong>Chef de service</strong> a validé le rapport trimestriel</div>
+                <span class="badge badge-light text-muted">il y a 1h</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div><i class="fas fa-upload text-warning mr-2"></i><strong>Rasoanaivo</strong> a ajouté un document “Note de service”</div>
+                <span class="badge badge-light text-muted">il y a 3h</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Graphique -->
+        <div class="card mt-4">
+          <div class="card-header bg-secondary text-white">
+            <h3 class="card-title"><i class="fas fa-chart-pie mr-2"></i> Statistiques des Documents</h3>
+          </div>
+          <div class="card-body">
+            <canvas id="documentsChart" style="max-height:350px;"></canvas>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Tous les Documents -->
+    <section id="tousDocuments" class="content-section">
+      <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h3>Tous les Documents</h3>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a href="Index.html">Accueil</a></li>
+              <li class="breadcrumb-item active">Tous les Documents</li>
+            </ol>
+          </nav>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="d-flex justify-content-between">
+              <div class="input-group input-group-sm" style="width: 250px;">
+                <input type="text" class="form-control" placeholder="Rechercher...">
+                <div class="input-group-append">
+                  <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                </div>
+              </div>
+              <div class="btn-group">
+                <button class="btn btn-outline-primary btn-sm"><i class="fas fa-filter mr-1"></i>Filtrer</button>
+                <button class="btn btn-outline-primary btn-sm"><i class="fas fa-sort mr-1"></i>Trier</button>
+                <button class="btn btn-outline-success btn-sm"><i class="fas fa-file-export mr-1"></i>Exporter</button>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Référence</th>
+                    <th>Titre</th>
+                    <th>Type</th>
+                    <th>Direction</th>
+                    <th>Date de création</th>
+                    <th>État</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>DOC-2025-001</td>
+                    <td>Note de service - Réorganisation</td>
+                    <td><i class="far fa-file-pdf text-danger"></i> PDF</td>
+                    <td>Direction des Ressources Humaines</td>
+                    <td>14/10/2025</td>
+                    <td><span class="badge badge-success">Archivé</span></td>
+                    <td>
+                      <div class="btn-group">
+                        <a href="document-view.html?id=DOC-2025-001" class="btn btn-info btn-sm" title="Voir"><i class="fas fa-eye"></i></a>
+                        <button class="btn btn-primary btn-sm" title="Télécharger"><i class="fas fa-download"></i></button>
+                        <button class="btn btn-secondary btn-sm" title="Historique"><i class="fas fa-history"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>DOC-2025-002</td>
+                    <td>Rapport mensuel</td>
+                    <td><i class="far fa-file-word text-primary"></i> Word</td>
+                    <td>Direction Administrative</td>
+                    <td>13/10/2025</td>
+                    <td><span class="badge badge-warning">En cours</span></td>
+                    <td>
+                      <div class="btn-group">
+                        <a href="document-view.html?id=DOC-2025-002" class="btn btn-info btn-sm" title="Voir"><i class="fas fa-eye"></i></a>
+                        <button class="btn btn-primary btn-sm" title="Télécharger"><i class="fas fa-download"></i></button>
+                        <button class="btn btn-secondary btn-sm" title="Historique"><i class="fas fa-history"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <div class="text-muted">Affichage de 1-2 sur 150 documents</div>
+              <nav aria-label="Page navigation">
+                <ul class="pagination pagination-sm mb-0">
+                  <li class="page-item disabled"><a class="page-link" href="#">Précédent</a></li>
+                  <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">Suivant</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ajouter Document -->
+    <section id="ajouterDoc" class="content-section">
+      <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h3>Nouveau Document</h3>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a href="Index.html">Accueil</a></li>
+              <li class="breadcrumb-item active">Ajouter un Document</li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="card shadow-sm">
+          <div class="card-header bg-primary text-white">
+            <h3 class="card-title mb-0"><i class="fas fa-file-alt mr-2"></i>Formulaire de Saisie</h3>
+          </div>
+          <div class="card-body">
+            <form action="#" method="post" enctype="multipart/form-data" id="documentForm">
+             <!-- Informations de l'opérateur -->
+<div class="card mb-4">
+  <div class="card-header bg-light">
+    <h5 class="mb-0"><i class="fas fa-user mr-2"></i>Informations de l'Opérateur</h5>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      
+      <!-- Nom -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Nom de l'opérateur</label>
+          <input type="text" class="form-control" id="operateurNom" name="operateurNom" placeholder="Entrez le nom de l'opérateur">
+        </div>
+      </div>
+
+      <!-- Prénom -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Prénom de l'opérateur</label>
+          <input type="text" class="form-control" id="operateurPrenom" name="operateurPrenom" placeholder="Entrez le prénom de l'opérateur">
+        </div>
+      </div>
+
+      <!-- Matricule -->
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Matricule</label>
+          <input type="text" class="form-control" id="operateurMatricule" name="operateurMatricule" placeholder="Ex : MTF-001">
+        </div>
+      </div>
+
+      <!-- Ministère de rattachement -->
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Ministère de rattachement</label>
+          <input type="text" class="form-control" id="operateurMinistere" name="operateurMinistere" placeholder="Ex : Ministère du Travail, de l'Emploi et de la Fonction Publique">
+        </div>
+      </div>
+
+      <!-- Date de saisie -->
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Date de saisie</label>
+          <input type="text" class="form-control" id="dateSaisie" readonly>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// Met automatiquement la date d'aujourd'hui
+document.addEventListener('DOMContentLoaded', function() {
+  const dateField = document.getElementById('dateSaisie');
+  const today = new Date();
+  const formattedDate = today.toLocaleDateString('fr-FR');
+  dateField.value = formattedDate;
+});
+</script>
+
+
+              <!-- Informations du document -->
+              <div class="card mb-4">
+                <div class="card-header bg-light">
+                  <h5 class="mb-0"><i class="fas fa-file-alt mr-2"></i>Informations du Document</h5>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Référence du document</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">DOC-2025-</span>
+                          </div>
+                          <input type="text" class="form-control" name="reference" value="004" readonly>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Date du document</label>
+                        <input type="date" class="form-control" name="dateDocument" required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Intitulé du document</label>
+                    <input type="text" class="form-control" name="titre" required 
+                           placeholder="Saisir le titre du document"
+                           list="titresCommuns">
+                    <datalist id="titresCommuns">
+                      <option value="Avancement">
+                      <option value="Nomination">
+                      <option value="Integration">
+
+                    </datalist>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Direction</label>
+                        <select class="form-control" name="direction" required id="direction">
+                          <option value="">-- Sélectionner une direction --</option>
+                          <option value="SG">Secretariat general</option>
+                          <option value="DAF">Direction des Affaires Financières et de la Gestion du Patrimoine</option>
+                          <option value="DPSSE">Direction de la Planification Stratégique, du Suivi et Evaluation</option>
+                          <option value="DEAJ">Direction des Etudes et des Affaires Juridiques</option>
+                          <option value="DSI">Direction des Systèmes d'Information</option>
+                          <option value="DRTFoP">Directions Régionales du Travail, de l'Emploi et de la Fonction Publique</option>
+                          <option value="DGT">Direction General du travail</option>
+                          <option value="">Direction du Travail et de la Promotion des Droits Fondamentaux</option>
+                          <option value="DSST">Direction de la Sécurité Sociale des Travailleurs</option>
+                          <option value="DPTD">Direction de la Promotion du Travail Décent</option>
+                          <option value="DMP">Direction de la Migration Professionnelle</option>
+                          <option value="DGPE">Direction General de la Promotion de l'Emploi</option>
+                          <option value="DFCRC">Direction de la Formation Continue et du Renforcement des Capacités</option>
+                          <option value="DGFoP">Direction General de la Fonction Publique</option>
+                          <option value="DRHE">Direction des Ressources Humaines de l'Etat</option>
+                          <option value="DFPAE">Direction de la Formation et du Perfectionnement des Agents de l'Etat</option>
+                          <option value="DRFP">Direction de la Réforme de la Fonction Publique</option>
+                          <option value="DRH">Direction des Ressources Humaines du Ministère</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Service</label>
+                        <select class="form-control" name="service" required id="service">
+                          <option value="">-- Sélectionner un service --</option>
+                          <option value="">Service d'Appui et planification</option>
+                          <option value="">Service d'Appui et des études technique</option>
+                          <option value="">Service de la chancelerie du travail</option>
+                          <option value="">Service de la Gestion des Equivalences Administratives des Titres</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Type de document</label>
+                        <select class="form-control" name="type" required>
+                          <option value="">-- Sélectionner le type --</option>
+                          <option value="PDF">Document PDF</option>
+                          <option value="WORD">Document Word</option>
+                          <option value="EXCEL">Document Excel</option>
+                          <option value="IMAGE">Image</option>
+                          <option value="SCAN">Document scanné</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Niveau de confidentialité</label>
+                        <select class="form-control" name="confidentialite" required>
+                          <option value="PUBLIC">Public</option>
+                          <option value="INTERNE">Interne</option>
+                          <option value="CONFIDENTIEL">Confidentiel</option>
+                          <option value="RESTREINT">Accès restreint</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Upload et Métadonnées -->
+              <div class="card mb-4">
+                <div class="card-header bg-light">
+                  <h5 class="mb-0"><i class="fas fa-upload mr-2"></i>Fichier et Métadonnées</h5>
+                </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label>Fichier du document</label>
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="documentFile" required>
+                      <label class="custom-file-label" for="documentFile">Choisir un fichier</label>
+                    </div>
+                    <small class="form-text text-muted">Formats acceptés : PDF, DOC, DOCX, XLS, XLSX, JPG, PNG (Max. 10 MB)</small>
+                  </div>
+
+                  <div class="form-group">
+                    <label> Observations</label>
+                    <textarea class="form-control" name="description" rows="3"
+                             placeholder="Ajouter une description ou des remarques..."></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Boutons d'action -->
+              <div class="text-right">
+                <button type="button" class="btn btn-secondary mr-2">
+                  <i class="fas fa-times mr-1"></i>Annuler
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-save mr-1"></i>Enregistrer le document
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Script pour l'autocomplétion et la gestion des services -->
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          // Gestion des services par direction
+          const servicesByDirection = {
+            'DRH': ['Recrutement', 'Formation', 'Paie', 'Relations sociales'],
+            'DAF': ['Comptabilité', 'Finance', 'Budget', 'Marchés publics'],
+            'DSI': ['Développement', 'Infrastructure', 'Support', 'Sécurité'],
+            'DG': ['Secrétariat', 'Communication', 'Audit', 'Stratégie']
+          };
+
+          // Mise à jour des services selon la direction sélectionnée
+          const directionSelect = document.getElementById('direction');
+          const serviceSelect = document.getElementById('service');
+
+          directionSelect.addEventListener('change', function() {
+            serviceSelect.innerHTML = '<option value="">-- Sélectionner un service --</option>';
+            const services = servicesByDirection[this.value] || [];
+            services.forEach(service => {
+              const option = document.createElement('option');
+              option.value = service;
+              option.textContent = service;
+              serviceSelect.appendChild(option);
+            });
+          });
+
+          // Gestion du nom de fichier dans l'input file
+          document.getElementById('documentFile').addEventListener('change', function(e) {
+            const fileName = e.target.files[0]?.name || 'Choisir un fichier';
+            const label = document.querySelector('.custom-file-label');
+            label.textContent = fileName;
+          });
+        });
+      </script>
+    </section>
+
+    <!-- Archives -->
+    <section id="archives" class="content-section">
+      <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h3>Archives</h3>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a href="Index.html">Accueil</a></li>
+              <li class="breadcrumb-item active">Archives</li>
+            </ol>
+          </nav>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="d-flex justify-content-end">
+              <a href="archives.html" class="btn btn-primary">
+                <i class="fas fa-folder-open mr-2"></i>Voir tous les archives
+              </a>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Référence</th>
+                    <th>Titre</th>
+                    <th>Date d'archivage</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>DOC-2025-001</td>
+                    <td>Note de service - Réorganisation</td>
+                    <td>14/10/2025</td>
+                    <td>
+                      <a href="document-view.html?id=DOC-2025-001" class="btn btn-info btn-sm">
+                        <i class="fas fa-eye"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Suivi -->
+    <section id="tousDocs" class="content-section">
+      <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h3>Suivi des Documents</h3>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a href="Index.html">Accueil</a></li>
+              <li class="breadcrumb-item active">Suivi</li>
+            </ol>
+          </nav>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="d-flex justify-content-end">
+              <a href="suivi.html" class="btn btn-primary">
+                <i class="fas fa-tasks mr-2"></i>Voir tous les documents en suivi
+              </a>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Référence</th>
+                    <th>Titre</th>
+                    <th>État</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>DOC-2025-002</td>
+                    <td>Rapport mensuel</td>
+                    <td><span class="badge badge-warning">En cours</span></td>
+                    <td>
+                      <a href="document-view.html?id=DOC-2025-002" class="btn btn-info btn-sm">
+                        <i class="fas fa-eye"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+   <!-- Documents Rejetés -->
+<section id="rejetes" class="content-section">
+  <div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h3>Documents Rejetés</h3>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item"><a href="Index.html">Accueil</a></li>
+          <li class="breadcrumb-item active">Documents Rejetés</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex justify-content-end">
+          <a href="documents-rejetes.html" class="btn btn-primary">
+            <i class="fas fa-times-circle mr-2"></i>Voir tous les documents rejetés
+          </a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Référence</th>
+                <th>Titre</th>
+                <th>Date de rejet</th>
+                <th>Motif</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>DOC-2025-003</td>
+                <td>Demande de congé</td>
+                <td>13/10/2025</td>
+                <td>Documents incomplets</td>
+                <td>
+                  <a href="document-view.html?id=DOC-2025-003" class="btn btn-info btn-sm" title="Voir">
+                    <i class="fas fa-eye"></i>
+                  </a>
+                  <a href="document-view.html?id=DOC-2025-003" class="btn btn-warning btn-sm" title="Modifier">
+                    <i class="fas fa-edit"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- Historique -->
+    <section id="historique" class="content-section">
+      <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h3>Historique</h3>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a href="Index.html">Accueil</a></li>
+              <li class="breadcrumb-item active">Historique</li>
+            </ol>
+          </nav>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="d-flex justify-content-end">
+              <a href="historique.html" class="btn btn-primary">
+                <i class="fas fa-history mr-2"></i>Voir l'historique complet
+              </a>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="timeline">
+              <div class="time-label">
+                <span class="bg-primary">14 Oct. 2025</span>
+              </div>
+              <div>
+                <i class="fas fa-file bg-info"></i>
+                <div class="timeline-item">
+                  <span class="time"><i class="fas fa-clock"></i> 14:00</span>
+                  <h3 class="timeline-header">Document archivé</h3>
+                  <div class="timeline-body">
+                    Document "Note de service - Réorganisation" archivé par Admin
+                  </div>
+                  <div class="timeline-footer">
+                    <a href="document-view.html?id=DOC-2025-001" class="btn btn-info btn-sm">Voir</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="main-footer" style="margin-left:250px; margin-top:20px;">
+    <strong>Copyright &copy; 2025 <a href="#">IS2M</a>.</strong> Tous droits réservés.
+  </footer>
+
+</div>
+
+<!-- JS -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="dist/js/adminlte.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Gestion des sections
+    document.querySelectorAll('[data-section]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const sectionId = this.getAttribute('data-section');
+            
+            // Cache toutes les sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active-section');
+            });
+            
+            // Affiche la section sélectionnée
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active-section');
+            }
+            
+            // Gestion des états actifs des liens
+            document.querySelectorAll('.nav-link').forEach(navLink => {
+                navLink.classList.remove('active');
+            });
+            this.classList.add('active');
+        });
+    });
+
+    // Gestion du menu déroulant
+    document.querySelectorAll('[data-toggle="treeview"]').forEach(toggle => {
+        toggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            const menuItem = this.closest('.nav-item');
+            const subMenu = menuItem.querySelector('.nav-treeview');
+            
+            // Toggle du menu
+            $(subMenu).slideToggle(300);
+            menuItem.classList.toggle('menu-open');
+            
+            // Rotation de la flèche
+            const arrow = this.querySelector('.fa-angle-left');
+            if (arrow) {
+                arrow.style.transform = menuItem.classList.contains('menu-open') 
+                    ? 'rotate(-90deg)' 
+                    : 'rotate(0)';
+            }
+        });
+    });
+
+    // Gestion de la sidebar
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    if (sidebarToggle) {
+        sidebarToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.body.classList.toggle('sidebar-collapse');
+            
+            // Sauvegarde l'état de la sidebar
+            localStorage.setItem('sidebarState', document.body.classList.contains('sidebar-collapse'));
+
+            // Gestion mobile
+            if (window.innerWidth <= 768) {
+                document.body.classList.toggle('sidebar-open');
+            }
+        });
+    }
+
+    // Restaure l'état de la sidebar
+    if (localStorage.getItem('sidebarState') === 'true') {
+        document.body.classList.add('sidebar-collapse');
+    }
+
+    // Gestion du clic en dehors de la sidebar sur mobile
+    document.addEventListener('click', function(e) {
+        if (window.innerWidth <= 768 && 
+            document.body.classList.contains('sidebar-open') && 
+            !e.target.closest('.main-sidebar') && 
+            !e.target.closest('#sidebarToggle')) {
+            document.body.classList.remove('sidebar-open');
+        }
+    });
+
+    // Initialisation du Chart.js
+    const ctx = document.getElementById('documentsChart');
+    if (ctx) {
+        new Chart(ctx.getContext('2d'), {
+            type: 'pie',
+            data: {
+                labels: ['PDF', 'Word', 'Image'],
+                datasets: [{
+                    data: [50, 30, 20],
+                    backgroundColor: ['#17a2b8', '#28a745', '#ffc107'],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { position: 'bottom' } }
+            }
+        });
+    }
+});
+</script>
+<script>
+  function showSection(sectionId, el) { 
+    // Afeno sections rehetra
+    document.querySelectorAll('.content-section').forEach(sec => sec.style.display = 'none');
+  
+    // Asehoy ilay section
+    document.getElementById(sectionId).style.display = 'block';
+  
+    // Gestion active class
+    document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+    if(el) el.classList.add('active');
+  }
+  
+  // Gestion sub-menu links (data-section)
+  document.querySelectorAll('a[data-section]').forEach(link => {
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      const section = this.getAttribute('data-section');
+      showSection(section, this);
+    });
+  });
+  </script>
+  
+    
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI -->
+<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="plugins/chart.js/Chart.min.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+
+</body>
+</html>

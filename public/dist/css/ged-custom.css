@@ -1,0 +1,152 @@
+/* GED Custom Styles - Optimized CSS */
+:root {
+  --primary-color: #4a90e2;
+  --secondary-color: #535b6c;
+  --success-color: #2ecc71;
+  --warning-color: #f1c40f;
+  --danger-color: #e74c3c;
+  --text-color: #2c3e50;
+  --border-radius: 4px;
+  --transition-speed: 0.3s;
+}
+
+/* Layout */
+.content-wrapper {
+  margin-left: 250px;
+  margin-top: 56px;
+  padding: 20px;
+  background: #f4f6f9;
+}
+
+/* Sidebar */
+.main-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 250px;
+  background-color: var(--secondary-color);
+  transition: width var(--transition-speed) ease;
+}
+
+/* Cards */
+.card {
+  box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
+  margin-bottom: 1rem;
+  border-radius: var(--border-radius);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.card:hover {
+  box-shadow: 0 2px 5px rgba(0,0,0,.2);
+}
+
+.card-header {
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  background-color: rgba(0,0,0,.03);
+  padding: 0.75rem 1.25rem;
+}
+
+/* Forms */
+.form-control {
+  border-radius: var(--border-radius);
+  border: 1px solid #dde2e6;
+  padding: 0.5rem 0.75rem;
+  transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+}
+
+.required-field::after {
+  content: "*";
+  color: var(--danger-color);
+  margin-left: 4px;
+}
+
+/* Preview Section */
+.preview-section {
+  border: 1px dashed #ddd;
+  padding: 15px;
+  border-radius: var(--border-radius);
+  background-color: #f8f9fa;
+}
+
+/* Tables */
+.table-modern {
+  width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+}
+
+.table-modern thead th {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+  padding: 0.75rem;
+  font-weight: 600;
+}
+
+.table-modern td {
+  padding: 0.75rem;
+  vertical-align: middle;
+  border-top: 1px solid #dee2e6;
+}
+
+/* Status Badges */
+.badge {
+  padding: 0.4em 0.6em;
+  font-size: 85%;
+  font-weight: 500;
+  border-radius: 3px;
+}
+
+.badge-waiting {
+  background-color: var(--warning-color);
+  color: #fff;
+}
+
+.badge-approved {
+  background-color: var(--success-color);
+  color: #fff;
+}
+
+.badge-rejected {
+  background-color: var(--danger-color);
+  color: #fff;
+}
+
+/* Custom File Input */
+.custom-file-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .content-wrapper {
+    margin-left: 0;
+  }
+  
+  .main-sidebar {
+    width: 0;
+    transform: translateX(-250px);
+  }
+  
+  .sidebar-open .main-sidebar {
+    width: 250px;
+    transform: translateX(0);
+  }
+}
