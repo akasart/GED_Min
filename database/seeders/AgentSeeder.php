@@ -5,17 +5,16 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Agent;
-use Illuminate\Support\Facades\Hash;
 
 class AgentSeeder extends Seeder
 {
     public function run()
     {
-        // Get user Rakoto (should be created by DatabaseSeeder)
+        // Récupération de l'utilisateur Rakoto
         $userRakoto = User::where('username', 'rakoto')->first();
 
+        // Si Rakoto existe
         if ($userRakoto) {
-            // Create agent for Rakoto
             $agentRakoto = Agent::firstOrCreate(
                 ['matricule' => '123456'],
                 [
@@ -28,15 +27,16 @@ class AgentSeeder extends Seeder
                 ]
             );
 
-            // Update agent if it exists to link to user
+            // Mise à jour s'il existait déjà
             if (!$agentRakoto->wasRecentlyCreated) {
-                $agentRakoto->update([
-                    'user_id' => $userRakoto->id,
-                ]);
+                $agentRakoto->update(['user_id' => $userRakoto->id]);
             }
         }
 
-        // Create additional agents
+        // Récupération d'un utilisateur standard (non admin)
+        $nonAdminUser = User::where('role', 'utilisateur')->first();
+
+        // Liste des autres agents à créer
         $agents = [
             [
                 'matricule' => '123457',
@@ -45,6 +45,7 @@ class AgentSeeder extends Seeder
                 'ministere_rattachement' => 'Travail',
                 'direction' => 'Direction des Ressources Humaines',
                 'service' => 'Formation',
+                'user_id' => $nonAdminUser?->id,
             ],
             [
                 'matricule' => '123458',
@@ -53,6 +54,7 @@ class AgentSeeder extends Seeder
                 'ministere_rattachement' => 'Travail',
                 'direction' => 'Direction des Systèmes d\'Information',
                 'service' => 'Développement',
+                'user_id' => $nonAdminUser?->id,
             ],
             [
                 'matricule' => '123459',
@@ -61,9 +63,11 @@ class AgentSeeder extends Seeder
                 'ministere_rattachement' => 'Travail',
                 'direction' => 'Direction Générale',
                 'service' => 'Secrétariat',
+                'user_id' => $nonAdminUser?->id,
             ],
         ];
 
+        // Création des agents
         foreach ($agents as $agentData) {
             Agent::firstOrCreate(
                 ['matricule' => $agentData['matricule']],
@@ -71,20 +75,7 @@ class AgentSeeder extends Seeder
             );
         }
 
-        // Ensure all agents (except admin agent) are linked to non-admin users
-        $nonAdminUser = User::where('role', '!=', 'admin')->where('role', 'utilisateur')->first();
-
-        if ($nonAdminUser) {
-            // Don't update agents that already have a user_id or are admin agents
-            Agent::whereNull('user_id')
-                ->where('matricule', '!=', 'MAT_ADMIN12')
-                ->update(['user_id' => $nonAdminUser->id]);
-        }
-
         $this->command->info('Agents créés avec succès!');
-        $this->command->info('- Rakoto (123456) - User: rakoto@gmail.com / Rakoto123');
-        $this->command->info('- Rasoana (123457)');
-        $this->command->info('- Raharimalala (123458)');
-        $this->command->info('- Rabe (123459)');
+        $this->command->info('- Rakoto (123456) - User: ' . ($userRakoto?->email ?? 'N/A'));
     }
 }
