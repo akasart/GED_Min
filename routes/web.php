@@ -163,8 +163,16 @@ use App\Http\Controllers\ConfidentialityController;
 
         // Document Management CRUD Routes
         Route::middleware('auth')->group(function () {
-            // Search route must be defined BEFORE resource route to avoid conflicts
+            // IMPORTANT: Specific routes must be defined BEFORE resource route to avoid conflicts
+            // Search route
             Route::get('documents/search', [DocumentController::class, 'search'])->name('documents.search');
+            
+            // Document sections (must be before resource route)
+            Route::get('documents/pending', [DocumentController::class, 'pending'])->name('documents.pending');
+            Route::get('documents/archives', [DocumentController::class, 'archives'])->name('documents.archives');
+            Route::get('documents/rejected', [DocumentController::class, 'rejected'])->name('documents.rejected');
+            
+            // Resource route (must be after specific routes)
             Route::resource('documents', DocumentController::class);
             
             // Document validation routes
@@ -172,11 +180,6 @@ use App\Http\Controllers\ConfidentialityController;
             Route::put('documents/{document}/reject', [DocumentController::class, 'reject'])->name('documents.reject');
             Route::put('documents/{document}/archive', [DocumentController::class, 'archive'])->name('documents.archive');
             Route::put('documents/{document}/resubmit', [DocumentController::class, 'resubmit'])->name('documents.resubmit');
-            
-            // Document sections
-            Route::get('documents/pending', [DocumentController::class, 'pending'])->name('documents.pending');
-            Route::get('documents/archives', [DocumentController::class, 'archives'])->name('documents.archives');
-            Route::get('documents/rejected', [DocumentController::class, 'rejected'])->name('documents.rejected');
             
             // Users listing
             Route::get('users', function() {
