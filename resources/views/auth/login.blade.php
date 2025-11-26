@@ -6,6 +6,10 @@
   <title>Ministère du Travail, de l'Emploi et de la Fonction Publique</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://code.ionicframework.com">
+  
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('design/plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Ionicons -->
@@ -70,7 +74,7 @@
     <div class="card">
       <div class="card-body login-card-body text-center">
         <div class="login-logo">
-          <img src="{{ asset('design/img/logoMIN.png') }}" alt="Logo du Ministère">
+          <img src="{{ asset('design/img/logoMIN.png') }}" alt="Logo du Ministère" width="120" style="height: auto;">
         </div>
       
         <p class="login-box-msg"> Connexion</p>
@@ -122,8 +126,9 @@
   </div>
 
   <!-- Scripts -->
-  <script src="{{ asset('design/plugins/jquery/jquery.min.js') }}"></script>
-  <script src="{{ asset('design/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-  <script src="{{ asset('design/dist/js/adminlte.min.js') }}"></script>
+  <!-- Scripts -->
+  <script src="{{ asset('design/plugins/jquery/jquery.min.js') }}" defer></script>
+  <script src="{{ asset('design/plugins/bootstrap/js/bootstrap.bundle.min.js') }}" defer></script>
+  <script src="{{ asset('design/dist/js/adminlte.min.js') }}" defer></script>
 </body>
 </html>
