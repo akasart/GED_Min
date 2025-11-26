@@ -2,7 +2,7 @@
   <!-- Left side -->
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" id="sidebarToggle" href="#" style="padding: 0.5rem 1rem;">
+      <a class="nav-link" data-widget="pushmenu" href="#" role="button" style="padding: 0.5rem 1rem;">
         <i class="fas fa-bars" style="color:#586470; font-size: 1.1rem;"></i>
       </a>
     </li>
@@ -13,7 +13,7 @@
     </li>
   </ul>
 
-  <!-- Center - Search -->
+  <!-- Center - Search (hidden on small screens) -->
   <div class="navbar-nav mx-auto d-none d-lg-block" style="max-width: 400px; width: 100%;">
     <form class="form-inline w-100" action="{{ route('documents.search') }}" method="GET">
       <div class="input-group input-group-sm w-100">

@@ -10,6 +10,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://code.ionicframework.com">
   
+  <!-- Preload logo for faster loading -->
+  <link rel="preload" href="{{ asset('design/img/logoMIN.png') }}" as="image">
+  
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('design/plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Ionicons -->
@@ -65,6 +68,32 @@
     }
     .forgot-password a:hover {
       text-decoration: underline;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .login-box {
+        width: 90% !important;
+        max-width: 400px;
+      }
+      .login-logo img {
+        width: 100px;
+      }
+      .login-box-msg {
+        font-size: 1.1rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .login-box {
+        width: 95% !important;
+      }
+      .login-logo img {
+        width: 80px;
+      }
+      .card-body {
+        padding: 1.5rem 1rem;
+      }
     }
   </style>
 </head>
