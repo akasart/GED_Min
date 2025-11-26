@@ -163,8 +163,9 @@ use App\Http\Controllers\ConfidentialityController;
 
         // Document Management CRUD Routes
         Route::middleware('auth')->group(function () {
-            Route::resource('documents', DocumentController::class);
+            // Search route must be defined BEFORE resource route to avoid conflicts
             Route::get('documents/search', [DocumentController::class, 'search'])->name('documents.search');
+            Route::resource('documents', DocumentController::class);
             
             // Document validation routes
             Route::put('documents/{document}/validate', [DocumentController::class, 'validate'])->name('documents.validate');
