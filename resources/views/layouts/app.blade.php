@@ -6,6 +6,11 @@
   <title>@yield('title', 'GED - Ministère du Travail')</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <!-- Preload critical resources for faster loading -->
+  <link rel="preload" href="{{ asset('design/plugins/fontawesome-free/css/all.min.css') }}" as="style">
+  <link rel="preload" href="{{ asset('design/plugins/fontawesome-free/webfonts/fa-solid-900.woff2') }}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{ asset('design/plugins/fontawesome-free/webfonts/fa-regular-400.woff2') }}" as="font" type="font/woff2" crossorigin>
+
   <!-- Design assets -->
   <link rel="stylesheet" href="{{ asset('design/plugins/fontawesome-free/css/all.min.css') }}">
   <link rel="stylesheet" href="{{ asset('design/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
